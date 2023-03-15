@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:rider_cc/Colors/Hex_Color.dart';
+import 'package:rider_cc/login/login.dart';
 import 'package:rider_cc/services/api.dart';
 import 'package:rider_cc/variables/branding_color.dart';
 import 'package:rider_cc/variables/images.dart';
@@ -55,7 +57,7 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.transparent,
+        color: HexColor("#770737").withOpacity(0.9),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -70,11 +72,11 @@ class _SplashState extends State<Splash> {
             ),
             Container(
                 child: Text("Loading please wait....",
-                    style: TextStyle(color: Colors.black))),
+                    style: TextStyle(color: Colors.white70))),
             Container(
               width: 115,
               child: LinearProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               ),
             ),
           ],
@@ -89,7 +91,7 @@ class _SplashState extends State<Splash> {
       var con = await checkConnection(context);
       // print(con);
       if (con == 'Connected') {
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => Login()),);
+         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()),);
       }
     }
 
