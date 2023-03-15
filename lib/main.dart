@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rider_cc/Colors/Hex_Color.dart';
@@ -7,6 +6,7 @@ import 'package:rider_cc/login/login.dart';
 import 'package:rider_cc/services/api.dart';
 import 'package:rider_cc/variables/branding_color.dart';
 import 'package:rider_cc/variables/images.dart';
+import 'package:back_pressed/back_pressed.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -28,7 +28,15 @@ class MyApp extends StatelessWidget {
               backgroundColor: Colors.black.withOpacity(0)),
         ),
         // onGenerateRoute: Routers.onGenerateRoute,
-        home: Splash(),
+        home:   OnBackPressed(
+          perform: (){
+            Splash();
+          //perform any action on back pressed
+        },
+          child: Splash(),
+        ),
+
+        //Splash(),
       ),
     );
   }
@@ -94,5 +102,8 @@ class _SplashState extends State<Splash> {
          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()),);
       }
     }
+
+  perform(){}
+
 
 }

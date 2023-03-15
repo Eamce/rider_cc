@@ -1,12 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rider_cc/Animation/Fade_Animation.dart';
 import 'package:rider_cc/Colors/Hex_Color.dart';
 import 'package:rider_cc/login/login.dart';
+import 'package:rider_cc/variables/branding_color.dart';
 import 'package:rider_cc/variables/images.dart';
 
 
 
-enum FormData { Name, Phone, Email, Gender, password, ConfirmPassword }
+enum FormData { Name, Phone, Email, Gender, password, ConfirmPassword, Username}
 
 class SignupScreen extends StatefulWidget {
   @override
@@ -27,6 +29,7 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   TextEditingController confirmPasswordController = new TextEditingController();
+  TextEditingController usernameController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +105,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             height: 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12.0),
-                              color: selected == FormData.Email
+                              color: selected == FormData.Name
                                   ? enabled
                                   : backgroundColor,
                             ),
@@ -232,6 +235,55 @@ class _SignupScreenState extends State<SignupScreen> {
                               textAlignVertical: TextAlignVertical.center,
                               style: TextStyle(
                                   color: selected == FormData.Email
+                                      ? enabledtxt
+                                      : deaible,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        FadeAnimation(
+                          delay: 1,
+                          child: Container(
+                            width: 300,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12.0),
+                              color: selected == FormData.Username
+                                  ? enabled
+                                  : backgroundColor,
+                            ),
+                            padding: const EdgeInsets.all(5.0),
+                            child: TextField(
+                              controller: usernameController,
+                              onTap: () {
+                                setState(() {
+                                  selected = FormData.Username;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                enabledBorder: InputBorder.none,
+                                border: InputBorder.none,
+                                prefixIcon: Icon(
+                                  CupertinoIcons.person_alt_circle,
+                                  color: selected == FormData.Username
+                                      ? enabledtxt
+                                      : deaible,
+                                  size: 20,
+                                ),
+                                hintText: 'Username',
+                                hintStyle: TextStyle(
+                                    color: selected == FormData.Username
+                                        ? enabledtxt
+                                        : deaible,
+                                    fontSize: 12),
+                              ),
+                              textAlignVertical: TextAlignVertical.center,
+                              style: TextStyle(
+                                  color: selected == FormData.Username
                                       ? enabledtxt
                                       : deaible,
                                   fontWeight: FontWeight.bold,
@@ -393,7 +445,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                               ),
                               style: TextButton.styleFrom(
-                                  backgroundColor: const Color(0xFF2697FF),
+                                  backgroundColor: HexColor("#770737").withOpacity(0.9),
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 14.0, horizontal: 80),
                                   shape: RoundedRectangleBorder(

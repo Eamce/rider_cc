@@ -69,6 +69,7 @@ dev_dependencies:
   supercharged: ^2.1.1
   build_runner: ^2.1.11
   build_web_compilers: ^3.2.3
+  back_pressed: ^0.0.2
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
