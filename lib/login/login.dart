@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:rider_cc/Animation/Fade_Animation.dart';
 import 'package:rider_cc/Colors/Hex_Color.dart';
 import 'package:rider_cc/account/SignUp_Screen.dart';
+import 'package:rider_cc/main.dart';
 import 'package:rider_cc/variables/images.dart';
-
+import 'package:back_pressed/back_pressed.dart';
 enum FormData {
   Email,
   password,
@@ -28,7 +29,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+      OnBackPressed(
+        perform: (){
+          print('BACK PRESS');
+        return  Splash();
+          //perform any action on back pressed
+        },
+        child: Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -41,12 +49,6 @@ class _LoginScreenState extends State<LoginScreen> {
               HexColor("#770737"),
               HexColor("#770737")
             ],
-            // colors: [
-            //   HexColor("#4b4293").withOpacity(0.8),
-            //   HexColor("#4b4293"),
-            //   HexColor("#08418e"),
-            //   HexColor("#08418e")
-            // ],
           ),
           image: DecorationImage(
             fit: BoxFit.cover,
@@ -302,6 +304,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
+    )
+      );
   }
 }

@@ -1,14 +1,19 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:rider_cc/Colors/Hex_Color.dart';
 import 'package:rider_cc/login/login.dart';
 import 'package:rider_cc/services/api.dart';
 import 'package:rider_cc/variables/branding_color.dart';
+import 'package:rider_cc/variables/caption.dart';
 import 'package:rider_cc/variables/images.dart';
 import 'package:back_pressed/back_pressed.dart';
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => Caption()),
+
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

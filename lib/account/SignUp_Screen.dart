@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:rider_cc/Animation/Fade_Animation.dart';
 import 'package:rider_cc/Colors/Hex_Color.dart';
 import 'package:rider_cc/login/login.dart';
-import 'package:rider_cc/variables/branding_color.dart';
+import 'package:rider_cc/services/api.dart';
+import 'package:rider_cc/tools/custom_modal.dart';
+import 'package:rider_cc/tools/loadspinkit.dart';
+import 'package:rider_cc/tools/syncsuccess.dart';
+import 'package:rider_cc/variables/GlobalVars.dart';
+import 'package:rider_cc/variables/caption.dart';
 import 'package:rider_cc/variables/images.dart';
-
+import 'package:back_pressed/back_pressed.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 
 enum FormData { Name, Phone, Email, Gender, password, ConfirmPassword, Username}
@@ -21,19 +28,27 @@ class _SignupScreenState extends State<SignupScreen> {
   Color deaible = Colors.grey;
   Color backgroundColor = const Color(0xFF1F1A30);
   bool ispasswordev = true;
-
+  bool loadSpinkit = true;
   FormData? selected;
 
-  TextEditingController nameController = new TextEditingController();
-  TextEditingController phoneController = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController nameController            = new TextEditingController();
+  TextEditingController phoneController           = new TextEditingController();
+  TextEditingController emailController           = new TextEditingController();
+  TextEditingController passwordController        = new TextEditingController();
   TextEditingController confirmPasswordController = new TextEditingController();
-  TextEditingController usernameController = new TextEditingController();
+  TextEditingController usernameController        = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return OnBackPressed(
+        perform: (){
+      print('BACK PRESS');
+      Navigator.pop(context);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) {
+        return LoginScreen();
+      }));
+    }, child: Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -434,7 +449,67 @@ class _SignupScreenState extends State<SignupScreen> {
                         FadeAnimation(
                           delay: 1,
                           child: TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                              if(checkFields()){
+                                if(passwordController.text == confirmPasswordController.text){
+                                  GlobalVars.context = context;
+                                  load();
+                                  // Provider.of<Caption>(context, listen: false)
+                                  //     .changeCap('Creating account...');
+                                  // // if (!mounted) return;
+
+                               await riderCreateAccount(context, nameController.text.toString() ,phoneController.text.toString(), emailController.text.toString(), usernameController.text.toString(), passwordController.text.toString());
+                                  setState(()  {    });
+                                  Provider.of<Caption>(context, listen: false)
+                                      .changeCap('Succesfully created account');
+                                  setState(() {
+                                    unloadSpinkit();
+                                  });
+                                  showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) => UpdatedSuccessfully());
+                                }else{
+                                  customModal(
+                                      context,
+                                      Icon(
+                                          CupertinoIcons
+                                              .exclamationmark_circle,
+                                          size: 50,
+                                          color: Colors.red),
+                                      Text(
+                                          "Password doesn't match",
+                                          textAlign: TextAlign.center),
+                                      true,
+                                      Icon(
+                                        CupertinoIcons.checkmark_alt,
+                                        size: 25,
+                                        color: Colors.greenAccent,
+                                      ),
+                                      'Okay',
+                                          () {});
+                                }
+                              }else{
+                                customModal(
+                                    context,
+                                    Icon(
+                                        CupertinoIcons
+                                            .exclamationmark_circle,
+                                        size: 50,
+                                        color: Colors.red),
+                                    Text(
+                                        "Please fill up the required fields.",
+                                        textAlign: TextAlign.center),
+                                    true,
+                                    Icon(
+                                      CupertinoIcons.checkmark_alt,
+                                      size: 25,
+                                      color: Colors.greenAccent,
+                                    ),
+                                    'Okay',
+                                        () {});
+                              }
+                              },
                               child: Text(
                                 "Sign Up",
                                 style: TextStyle(
@@ -482,7 +557,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             return LoginScreen();
                           }));
                         },
-                        child: Text("Sing in",
+                        child: Text("Sign in",
                             style: TextStyle(
                                 color: Colors.white.withOpacity(0.9),
                                 fontWeight: FontWeight.bold,
@@ -497,6 +572,21 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ),
       ),
+    )
     );
+  }
+
+  bool checkFields(){
+    if(nameController.text.isNotEmpty ||
+    phoneController.text.isNotEmpty ||
+    emailController.text.isNotEmpty ||
+    passwordController.text.isNotEmpty ||
+    confirmPasswordController.text.isNotEmpty ||
+    usernameController.text.isNotEmpty ){
+      return true;
+    }else{
+      return false;
+    }
+
   }
 }
