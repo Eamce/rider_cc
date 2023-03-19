@@ -453,7 +453,7 @@ class _SignupScreenState extends State<SignupScreen> {
                               if(checkFields()){
                                 if(passwordController.text == confirmPasswordController.text){
                                   GlobalVars.context = context;
-                                  load();
+                                  load('Creating account please wait...');
                                   // Provider.of<Caption>(context, listen: false)
                                   //     .changeCap('Creating account...');
                                   // // if (!mounted) return;
@@ -469,6 +469,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       barrierDismissible: false,
                                       context: context,
                                       builder: (context) => UpdatedSuccessfully());
+                                  GlobalVars.loadSpinkit = true;
                                 }else{
                                   customModal(
                                       context,
@@ -488,6 +489,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       ),
                                       'Okay',
                                           () {});
+                                  GlobalVars.loadSpinkit = true;
                                 }
                               }else{
                                 customModal(
@@ -508,6 +510,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
                                     'Okay',
                                         () {});
+                                GlobalVars.loadSpinkit = true;
                               }
                               },
                               child: Text(
@@ -577,16 +580,16 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   bool checkFields(){
-    if(nameController.text.isNotEmpty ||
-    phoneController.text.isNotEmpty ||
-    emailController.text.isNotEmpty ||
-    passwordController.text.isNotEmpty ||
-    confirmPasswordController.text.isNotEmpty ||
+    if(nameController.text.isNotEmpty &&
+    phoneController.text.isNotEmpty &&
+    emailController.text.isNotEmpty &&
+    passwordController.text.isNotEmpty &&
+    confirmPasswordController.text.isNotEmpty &&
     usernameController.text.isNotEmpty ){
       return true;
     }else{
       return false;
     }
-
   }
+
 }

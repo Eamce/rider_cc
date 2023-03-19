@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 // import 'package:http/http.dart' show Client, Request, get;
 
 
-bool loadSpinkit = true;
+
 class LoadingSpinkit extends StatefulWidget {
   @override
   _LoadingSpinkitState createState() => _LoadingSpinkitState();
@@ -69,14 +69,14 @@ class _LoadingSpinkitState extends State<LoadingSpinkit> {
   }
 }
 
-load() {
+load(String caption) {
   // GlobalVariables.statusCaption = 'Creating/Updating Database...';
   // context.read().changeCap('Creating/Updating Database...');
   Provider.of<Caption>(GlobalVars.context!, listen: false)
-      .changeCap('Creating account please wait....');
+      .changeCap('$caption');
   GlobalVars.spinProgress = 0;
 
-  if (loadSpinkit == true) {
+  if (GlobalVars.loadSpinkit == true) {
     showDialog(
         barrierDismissible: false,
         context: GlobalVars.context!,
@@ -86,7 +86,7 @@ load() {
 }
 
 unloadSpinkit() async {
-  loadSpinkit = false;
+  GlobalVars.loadSpinkit = false;
   print('Unload Spinkit');
 
     GlobalVars.tableProcessing = 'Unloading Spinkit . . .';

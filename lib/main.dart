@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:rider_cc/Colors/Hex_Color.dart';
 import 'package:rider_cc/login/login.dart';
+import 'package:rider_cc/screens/menu.dart';
 import 'package:rider_cc/services/api.dart';
 import 'package:rider_cc/variables/branding_color.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rider_cc/variables/caption.dart';
 import 'package:rider_cc/variables/images.dart';
 import 'package:back_pressed/back_pressed.dart';
@@ -104,7 +106,14 @@ class _SplashState extends State<Splash> {
       var con = await checkConnection(context);
       // print(con);
       if (con == 'Connected') {
-         Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()),);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        bool status=prefs.getBool('isLoggedIn') ?? false;
+        if(status){
+          Navigator.pop(context);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Menu()),);
+        }else{
+          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()),);
+        }
       }
     }
 
