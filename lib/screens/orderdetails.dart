@@ -26,9 +26,6 @@ class _OrderDetailsState extends State<OrderDetails> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var appBarSize = AppBar().preferredSize.height;
-    var safePadding = MediaQuery.of(context).padding.top;
-    var bottomPadding = MediaQuery.of(context).padding.bottom;
     return WillPopScope(
       onWillPop: () async =>false,
       child: Scaffold(
@@ -129,7 +126,6 @@ class _OrderDetailsState extends State<OrderDetails> {
                               ElevatedButton(
                                 style: style,
                                 onPressed: () {
-
                                 },
                                   child: Text('Accept Order'),
                               // child:  Icon(CupertinoIcons.check_mark),
