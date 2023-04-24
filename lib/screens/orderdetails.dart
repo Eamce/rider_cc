@@ -40,7 +40,7 @@ class _OrderDetailsState extends State<OrderDetails> {
              Navigator.push(context, MaterialPageRoute(builder: (context) => Menu()),);
            },
           ),
-          title: Text("List of Orders",
+          title: Text("Order Details",
               style: TextStyle(color: Colors.white)),
         ),
       body: SafeArea(
@@ -106,7 +106,14 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       Padding(
                                         padding: const EdgeInsets.all(3.0),
                                         child: Text( 'Quantity: '+
-                                            CustomerOrder.customerOrders[index]['users_mobile'],
+                                            CustomerOrder.customerOrders[index]['quantity'],
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 2),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(3.0),
+                                        child: Text( 'Price: '+
+                                            CustomerOrder.customerOrders[index]['product_price'],
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 2),
                                       ),
@@ -125,7 +132,9 @@ class _OrderDetailsState extends State<OrderDetails> {
                              // Spacer(),
                               ElevatedButton(
                                 style: style,
-                                onPressed: () {
+                                onPressed: () async {
+                                  await changeOrderStatusbyProduct(context, CustomerOrder.customerOrders[index]['product_id'].toString(),
+                                      CustomerOrder.customerOrders[index]['transaction_no'].toString());
                                 },
                                   child: Text('Accept Order'),
                               // child:  Icon(CupertinoIcons.check_mark),
