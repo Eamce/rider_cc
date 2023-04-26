@@ -7,6 +7,7 @@ import 'package:rider_cc/login/login.dart';
 import 'package:rider_cc/screens/menu.dart';
 import 'package:rider_cc/services/api.dart';
 import 'package:rider_cc/variables/branding_color.dart';
+import 'package:rider_cc/variables/riders.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rider_cc/variables/caption.dart';
 import 'package:rider_cc/variables/images.dart';
@@ -27,7 +28,6 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, child) => MaterialApp(
         title: 'Cake Station',
         debugShowCheckedModeBanner: false,
-
         theme: ThemeData(
           primarySwatch: brandingColor,
           visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -109,6 +109,13 @@ class _SplashState extends State<Splash> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         bool status=prefs.getBool('isLoggedIn') ?? false;
         if(status){
+          Rider.id       =  prefs.getString('riders_id').toString();
+          Rider.fullname =  prefs.getString('riders_fullname').toString();
+          Rider.email    =  prefs.getString('riders_email').toString();
+          Rider.mobile   =  prefs.getString('riders_mobile').toString();
+          Rider.password =  prefs.getString('riders_password').toString();
+          Rider.username =  prefs.getString('riders_username').toString();
+          print('USERNAME : ${Rider.username}');
           Navigator.pop(context);
           Navigator.push(context, MaterialPageRoute(builder: (context) => Menu()),);
         }else{

@@ -249,5 +249,4 @@ class _AccountState extends State<Account> {
   void initState() {
     super.initState();
   }
-
 }

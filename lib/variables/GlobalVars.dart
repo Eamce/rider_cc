@@ -20,4 +20,5 @@ class GlobalVars{
   static Timer? timerSessionInactivity;
   static Timer? timerCheckConcurrentLogIn;
   static Timer? timerChatCount;
+  static bool isLoggedin = false;
 }

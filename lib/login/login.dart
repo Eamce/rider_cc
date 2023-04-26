@@ -504,20 +504,22 @@ class _LoginScreenState extends State<LoginScreen> {
   Future login(List rider) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
+    if (mounted) setState(() {});
     Navigator.pop(context);
-    prefs.setString('riders_id', rider[0]['users_id'].toString().trim());
-    prefs.setString('riders_fullname', rider[0]['users_address'].toString().trim());
-    prefs.setString('riders_email', rider[0]['users_email'].toString().trim());
-    prefs.setString('riders_mobile', rider[0]['users_mobile'].toString().trim());
-    prefs.setString('riders_password', rider[0]['users_password'].toString().trim());
-    prefs.setString('riders_username', rider[0]['users_username'].toString().trim());
+    prefs.setString('riders_id',rider[0]['riders_id'].toString().trim());
+    prefs.setString('riders_fullname',rider[0]['riders_fullname'].toString().trim());
+    prefs.setString('riders_email',rider[0]['riders_email'].toString().trim());
+    prefs.setString('riders_mobile',rider[0]['riders_mobile'].toString().trim());
+    prefs.setString('riders_password',rider[0]['riders_password'].toString().trim());
+    prefs.setString('riders_username',rider[0]['riders_username'].toString().trim());
     Rider.id       =  prefs.getString('riders_id').toString();
-    Rider.fullname  =  prefs.getString('riders_fullname').toString();
+    Rider.fullname =  prefs.getString('riders_fullname').toString();
     Rider.email    =  prefs.getString('riders_email').toString();
     Rider.mobile   =  prefs.getString('riders_mobile').toString();
     Rider.password =  prefs.getString('riders_password').toString();
     Rider.username =  prefs.getString('riders_username').toString();
     prefs.setBool('isLoggedIn', true);
+    print('rider username: ${prefs.getString('riders_username').toString()}');
     Navigator.pop(context);
     Navigator.push(context, MaterialPageRoute(builder: (context) => Menu()),);
   }
