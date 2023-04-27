@@ -462,6 +462,7 @@ Future getTransactions(BuildContext context) async {
               DateTime.now().day)).toString()}'
 
         });
+
     if (response.statusCode == 200) {
       var convertedDataToJson = jsonDecode(response.body);
       return convertedDataToJson;
@@ -571,6 +572,7 @@ Future changeOrderStatusbyProduct(BuildContext context, String product_id, Strin
           'tran_no'     : trans,
           'product_id'  : product_id,
         });
+     print('status code: ${response.statusCode}');
     if (response.statusCode == 200) {
       var convertedDataToJson = jsonDecode(response.body);
       return convertedDataToJson;
@@ -607,66 +609,66 @@ Future changeOrderStatusbyProduct(BuildContext context, String product_id, Strin
               () {});
     }
   } on TimeoutException {
-    customModal(
-        context,
-        Icon(CupertinoIcons.exclamationmark_circle,
-            size: 50, color: Colors.red),
-        Text(
-            "Connection timed out. Please check internet connection or proxy server configurations.",
-            textAlign: TextAlign.center),
-        true,
-        Icon(
-          CupertinoIcons.checkmark_alt,
-          size: 25,
-          color: Colors.greenAccent,
-        ),
-        'Okay',
-            () {});
+    // customModal(
+    //     context,
+    //     Icon(CupertinoIcons.exclamationmark_circle,
+    //         size: 50, color: Colors.red),
+    //     Text(
+    //         "Connection timed out. Please check internet connection or proxy server configurations.",
+    //         textAlign: TextAlign.center),
+    //     true,
+    //     Icon(
+    //       CupertinoIcons.checkmark_alt,
+    //       size: 25,
+    //       color: Colors.greenAccent,
+    //     ),
+    //     'Okay',
+    //         () {});
   } on SocketException {
-    customModal(
-        context,
-        Icon(CupertinoIcons.exclamationmark_circle,
-            size: 50, color: Colors.red),
-        Text(
-            "Connection timed out. Please check internet connection or proxy server configurations.",
-            textAlign: TextAlign.center),
-        true,
-        Icon(
-          CupertinoIcons.checkmark_alt,
-          size: 25,
-          color: Colors.greenAccent,
-        ),
-        'Okay',
-            () {});
+    // customModal(
+    //     context,
+    //     Icon(CupertinoIcons.exclamationmark_circle,
+    //         size: 50, color: Colors.red),
+    //     Text(
+    //         "Connection timed out. Please check internet connection or proxy server configurations.",
+    //         textAlign: TextAlign.center),
+    //     true,
+    //     Icon(
+    //       CupertinoIcons.checkmark_alt,
+    //       size: 25,
+    //       color: Colors.greenAccent,
+    //     ),
+    //     'Okay',
+    //         () {});
   } on HttpException {
-    customModal(
-        context,
-        Icon(CupertinoIcons.exclamationmark_circle,
-            size: 50, color: Colors.red),
-        Text("An HTTP error eccured. Please try again later.",
-            textAlign: TextAlign.center),
-        true,
-        Icon(
-          CupertinoIcons.checkmark_alt,
-          size: 25,
-          color: Colors.greenAccent,
-        ),
-        'Okay',
-            () {});
+    // customModal(
+    //     context,
+    //     Icon(CupertinoIcons.exclamationmark_circle,
+    //         size: 50, color: Colors.red),
+    //     Text("An HTTP error eccured. Please try again later.",
+    //         textAlign: TextAlign.center),
+    //     true,
+    //     Icon(
+    //       CupertinoIcons.checkmark_alt,
+    //       size: 25,
+    //       color: Colors.greenAccent,
+    //     ),
+    //     'Okay',
+    //         () {});
   } on FormatException {
-    customModal(
-        context,
-        Icon(CupertinoIcons.exclamationmark_circle,
-            size: 50, color: Colors.red),
-        Text("Format exception error occured. Please try again later.",
-            textAlign: TextAlign.center),
-        true,
-        Icon(
-          CupertinoIcons.checkmark_alt,
-          size: 25,
-          color: Colors.greenAccent,
-        ),
-        'Okay',
-            () {});
+    // customModal(
+    //     context,
+    //     Icon(CupertinoIcons.exclamationmark_circle,
+    //         size: 50, color: Colors.red),
+    //     Text("Format exception error occured. Please try again later.",
+    //         textAlign: TextAlign.center),
+    //     true,
+    //     Icon(
+    //       CupertinoIcons.checkmark_alt,
+    //       size: 25,
+    //       color: Colors.greenAccent,
+    //     ),
+    //     'Okay',
+    //         () {});
   }
 }
