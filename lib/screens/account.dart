@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:rider_cc/account/change_password.dart';
 import 'package:rider_cc/login/login.dart';
 import 'package:rider_cc/tools/customModal.dart';
 import 'package:rider_cc/variables/GlobalVars.dart';
@@ -101,11 +102,11 @@ class _AccountState extends State<Account> {
                         ),
                       ),
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     PageTransition(
-                        //         type: PageTransitionType.rightToLeft,
-                        //         child: ChangePassword()));
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: ChangePassword()));
                       },
                     ),
                   ],
